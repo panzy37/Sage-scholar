@@ -15,6 +15,7 @@ def retrieval_metrics(retrieved, gold, k=5):
     dcg = sum((2 ** relevance.get(x, 0) - 1) / math.log2(i+2) for i, x in enumerate(ranked))
     ideal = sum((2 ** grade - 1)/math.log2(i+2) for i, grade in enumerate(sorted(relevance.values(),reverse=True)[:k]))
     return {f'recall@{k}': sum(hits)/len(relevant), f'precision@{k}': sum(hits)/k,
+            f'all_evidence_hit@{k}': float(relevant.issubset(ranked)),
             'mrr': next((1/(i+1) for i, hit in enumerate(hits) if hit), 0), 'ndcg': dcg/ideal if ideal else 0}
 
 

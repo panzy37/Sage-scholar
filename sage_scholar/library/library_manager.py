@@ -12,7 +12,7 @@ from uuid import uuid4
 from sage_scholar.domain.documents import DocumentRecord, DocumentVersion, IngestionStatus, IngestResult, utc_now
 from sage_scholar.infrastructure.document_store import JsonDocumentStore
 from sage_scholar.infrastructure.json_store import file_lock
-from .converter import convert_to_markdown
+from .converter import convert_to_markdown, ConvertMetadata
 
 logger = logging.getLogger(__name__)
 
@@ -73,6 +73,7 @@ class LibraryManager:
         staging = Path(self.data_dir) / "converted" / doc.document_id / uuid4().hex
         new_path = None
         committed = False
+        text_error = None
         try:
             staging.mkdir(parents=True, exist_ok=True)
             # Parse a stable snapshot, not a caller-owned file which can change mid-ingestion.
@@ -81,10 +82,20 @@ class LibraryManager:
                 original = staging / ("original" + Path(src).suffix)
                 shutil.copyfile(src, original)
             self._status(doc, IngestionStatus.PARSING)
-            converted = convert_to_markdown(
-                src if arxiv else str(original), str(staging),
-                self.paper_tool, self.pdfmux_tool, custom_title="document",
-            )
+            can_index_images = bool(self.visual and original and original.suffix.lower() == '.pdf' and save_original)
+            try:
+                converted = convert_to_markdown(
+                    src if arxiv else str(original), str(staging),
+                    self.paper_tool, self.pdfmux_tool, custom_title="document",
+                )
+            except Exception as exc:
+                self._allow_visual_fallback(exc, can_index_images, cancelled)
+                text_error = exc
+                # A version still needs a stable artifact path. This is an empty
+                # text artifact, never fabricated OCR or caption content.
+                path = staging / 'document.md'
+                path.write_text('')
+                converted = ConvertMetadata(output_path=str(path), source_type='pdf', title=doc.title)
             self._check_cancelled(cancelled)
             new_path = converted.output_path
             if arxiv:
@@ -101,14 +112,24 @@ class LibraryManager:
                 if existing and existing.parser_version == "pymupdf-structure-v2" and parser_version != existing.parser_version:
                     raise ValueError("结构化解析失败，保留之前可用文档版本；请检查 PDF 后重试")
             if (doc.active_version and content_hash == doc.content_hash
-                    and parser_version == doc.parser_version):
+                    and parser_version == doc.parser_version
+                    and doc.metadata.get('text_index', {}).get('status') != 'failed'):
                 self._status(doc, IngestionStatus.READY)
                 shutil.rmtree(staging)
                 return self._result(doc, "skipped")
 
             self._status(doc, IngestionStatus.INDEXING)
             self._check_cancelled(cancelled)
-            self.pipeline.add_document(new_path, save=False)
+            try:
+                # Structured PDF extraction may recover text even when pdfmux failed.
+                self.pipeline.add_document(new_path, save=False)
+                text_error = None
+            except Exception as exc:
+                self._allow_visual_fallback(exc, can_index_images, cancelled)
+                text_error = exc
+                # Remove only this uncommitted version, under the ingestion lock.
+                # Storage failures are not downgraded: save below must succeed.
+                self.pipeline.vector_store.remove_by_filepath(new_path)
             # Keep previous chunks: active retrieval filters by the catalog's current path.
             # Startup reconciliation removes uncommitted chunks after a crash.
             self.pipeline.save()
@@ -130,6 +151,10 @@ class LibraryManager:
             current.metadata.update(source_type=converted.source_type, arxiv_id=converted.arxiv_id)
             if self.visual and original and original.suffix.lower() == ".pdf" and save_original:
                 current.metadata["visual"] = self.visual.build(original, new_path)
+            if text_error and current.metadata.get('visual', {}).get('status') != 'ready':
+                raise text_error
+            current.metadata['text_index'] = {'status': 'failed' if text_error else 'ready',
+                'error_type': type(text_error).__name__ if text_error else None}
             self._check_cancelled(cancelled)
             self._status(current, IngestionStatus.READY)
             committed = True
@@ -157,6 +182,14 @@ class LibraryManager:
                     logger.exception("保存导入失败状态失败")
                     exc.add_note(f"失败状态未写入: {type(status_error).__name__}: {status_error}")
             raise
+
+    def _allow_visual_fallback(self, exc, available, cancelled):
+        from sage_scholar.runtime.journal import WorkflowInterrupted
+        from sage_scholar.runtime.control import ResearchBudgetReached
+        self._check_cancelled(cancelled)
+        if not available or isinstance(exc, (WorkflowInterrupted, ResearchBudgetReached)):
+            raise exc
+        logger.warning('PDF text indexing unavailable; attempting independent visual index (%s)', type(exc).__name__)
 
     def _status(self, doc, status):
         doc.ingestion_status = status

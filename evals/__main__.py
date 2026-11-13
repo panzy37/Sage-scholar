@@ -34,7 +34,44 @@ def main():
     compare.add_argument('--device',default='cpu')
     compare.add_argument('--k',type=int,default=3)
     compare.add_argument('--output',default='eval-results')
+    sciegqa=commands.add_parser('sciegqa', help='Real SciEGQA PDF retrieval; local/remote embeddings, no answer API')
+    sciegqa.add_argument('--dataset-root', default='eval-results/sciegqa/downloads')
+    sciegqa.add_argument('--download', action='store_true', help='Download pinned official PDFs and annotations (no Images.tar)')
+    sciegqa.add_argument('--output', default='eval-results/sciegqa/run')
+    sciegqa.add_argument('--papers', type=int, default=0, help='0 (default) evaluates all papers; positive values explicitly request a sample')
+    sciegqa.add_argument('--questions', type=int, default=0, help='0 means all questions on sampled papers')
+    sciegqa.add_argument('--seed', type=int, default=42)
+    sciegqa.add_argument('--k', type=int, default=3)
+    sciegqa.add_argument('--scope', choices=['document','corpus'], default='document')
+    sciegqa.add_argument('--modes', nargs='+', choices=['text','visual','fused'], default=['text','visual','fused'])
+    sciegqa.add_argument('--device', default='cpu')
+    sciegqa.add_argument('--threads', type=int, default=4)
+    sciegqa.add_argument('--max-side', type=int, default=1600, help='Page image max side; 768 is an explicit lower-resolution smoke test')
+    sciegqa.add_argument('--embedding', default='intfloat/multilingual-e5-small')
+    sciegqa.add_argument('--reranker', default='BAAI/bge-reranker-v2-m3')
+    sciegqa.add_argument('--visual-model', default='Qwen/Qwen3-VL-Embedding-2B')
+    sciegqa.add_argument('--visual-provider', choices=['local', 'remote'], default='local')
+    sciegqa.add_argument('--visual-base-url', default='http://127.0.0.1:18001/v1')
+    sciegqa.add_argument('--visual-revision', default='main', help='Pin remote weight/backend revision for index compatibility')
+    from evals.runners.multimodal_final import add_parser
+    add_parser(commands)
+    from evals.runners.spiqa_holdout import add_parser as add_holdout
+    add_holdout(commands)
     args=parser.parse_args()
+    if args.command == 'spiqa-holdout':
+        from evals.runners.spiqa_holdout import run as holdout
+        holdout(args)
+        return
+    if args.command == 'multimodal-final':
+        from evals.runners.multimodal_final import run as finalize
+        finalize(args)
+        return
+    if args.command=='sciegqa':
+        from evals.runners.sciegqa import run as evaluate_sciegqa
+        result=evaluate_sciegqa(args)
+        if any(v['errors'] for v in result['summary'].values()):
+            raise SystemExit(1)
+        return
     if args.command=='validate':
         from evals.dataset import load, is_labeled
         data=load(args.dataset)

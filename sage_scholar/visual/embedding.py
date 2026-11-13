@@ -12,6 +12,12 @@ class VisualEmbedding:
 
     @property
     def identity(self):
+        if self.config.embedding_provider == "remote":
+            return {"model": self.config.embedding_model, "revision": self.config.embedding_revision,
+                    "normalized": True, "input": "image-only-v1",
+                    "implementation": "vllm-chat-embeddings-v1",
+                    "instruction": "Represent the user's input.",
+                    "dimensions": self.config.embedding_dimensions}
         return {"model": self.config.embedding_model, "revision": self.config.embedding_revision,
                 "normalized": True, "input": "image-only-v1", "implementation": "sentence-transformers"}
 
@@ -19,6 +25,10 @@ class VisualEmbedding:
         import numpy as np
         if not inputs:
             return []
+        if self.config.embedding_provider == "remote":
+            from .remote_embedding import encode_remote
+            with self._lock:
+                return encode_remote(inputs, self.config)
         with self._lock:
             check_control()
             if self._model is None:

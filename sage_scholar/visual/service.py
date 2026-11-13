@@ -92,16 +92,16 @@ class VisualService:
             raise ValueError("视觉索引与 PDF 版本不匹配，请重建图片索引")
         return manifest
 
-    def search(self, query, docs, top_k=3):
+    def search(self, query, docs, top_k=3, *, locator_assistance=True):
         try:
-            return self._search(query, docs, top_k)
+            return self._search(query, docs, top_k, locator_assistance=locator_assistance)
         except WorkflowInterrupted:
             raise
         except Exception:
             logger.warning("Visual retrieval unavailable", exc_info=True)
             return [], ["图片检索不可用，本次保留文字结果；图像内容尚未核验。"]
 
-    def _search(self, query, docs, top_k=3):
+    def _search(self, query, docs, top_k=3, *, locator_assistance=True):
         if not self.config.enabled:
             return [], []
         import numpy as np
@@ -130,6 +130,8 @@ class VisualService:
         # scores only break ties; never overwrite a figure match with a page match.
         label = re.search(r"(?:figure|fig\.?|图|table|表)\s*(\d+(?:[.\-]\d+)?)", query, re.I)
         page_ref = re.search(r"(?:第\s*(\d+)\s*页|\bpage\s+(\d+)\b)", query, re.I)
+        if not locator_assistance:
+            label = page_ref = None
         page_number = int(page_ref.group(1) or page_ref.group(2)) if page_ref else None
         vector = None
         try:

@@ -1,4 +1,6 @@
 """Structure-first, token-bounded chunking with stable source locators."""
+import re
+
 from .document import Chunk
 from .structure import markdown_elements
 
@@ -45,20 +47,59 @@ class TextChunker:
         header = '\n'.join(lines[:header_count])
         if source.metadata.get('caption'):
             header = source.metadata['caption'] + '\n' + header
-        if self.count_tokens(header) > self.chunk_size:
-            raise ValueError('表格列名超过 Embedding 上限，不能截断表头后入库')
+        oversized_header = self.count_tokens(header) > self.chunk_size
+        if oversized_header:
+            # The immutable structured source retains the full table. Each cell
+            # fragment carries row/column identity rather than truncating a row.
+            yield from self._table_cells(lines[0], -1, lines[0])
+            if source.metadata.get('caption'):
+                for start, end, text in self._split(source.metadata['caption']):
+                    yield text, {'table_part': 'caption', 'caption_char_start': start, 'caption_char_end': end}
         rows, start = [], 0
         for index, row in enumerate(lines[header_count:]):
+            if oversized_header:
+                yield from self._table_cells(row, index, lines[0])
+                continue
             content = '\n'.join([header, *rows, row])
             if self.count_tokens(content) > self.chunk_size:
                 if rows:
                     yield '\n'.join([header, *rows]), {'row_start': start, 'row_end': index}
                 rows, start = [], index
                 if self.count_tokens(header + '\n' + row) > self.chunk_size:
-                    raise ValueError('单行表格超过 Embedding 上限，不能破坏行列对应；请提高模型输入上限')
+                    yield from self._table_cells(row, index, lines[0])
+                    start = index + 1
+                    continue
             rows.append(row)
-        if rows or not lines[header_count:]:
+        if rows or (not lines[header_count:] and not oversized_header):
             yield '\n'.join([header, *rows]), {'row_start': start, 'row_end': len(lines) - header_count}
+
+    def _table_cells(self, row, index, header):
+        # Only unescaped Markdown delimiters separate cells (PDF parser escapes
+        # literal pipes). Retain the original cell text and offsets verbatim.
+        def cells(line):
+            return re.split(r'(?<!\\)\|', line.strip().strip('|'))
+        headers, values = cells(header), cells(row)
+        for column, value in enumerate(values):
+            label = headers[column].strip() if column < len(headers) else ''
+            prefix = f'Row {index + 1}, column {column + 1}'
+            if self.count_tokens(label) < self.chunk_size // 4:
+                prefix += f' ({label})'
+            prefix += ': '
+            available = self.chunk_size - self.count_tokens(prefix) - 4
+            if available < 1:
+                prefix, available = '', self.chunk_size
+            splitter = TextChunker(available, 0, count_tokens=self.count_tokens)
+            for start, end, fragment in splitter._split(value):
+                # Check combined tokens too: tokenizers need not be additive.
+                content = prefix + fragment
+                if self.count_tokens(content) > self.chunk_size:
+                    raise ValueError('表格分片的 token 预算不足')
+                yield content, {'table_part': 'header' if index < 0 else 'cell',
+                    'row_start': index, 'row_end': index + 1, 'column_index': column,
+                    'column_header': label[:160], 'column_header_truncated': len(label) > 160,
+                    'cell_char_start': start, 'cell_char_end': end,
+                    'row_key': values[0].strip()[:160] if values else '',
+                    'row_key_truncated': bool(values and len(values[0].strip()) > 160)}
 
     def chunk(self, document):
         result = []

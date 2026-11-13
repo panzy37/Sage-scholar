@@ -79,7 +79,7 @@ class LegacyRetrievalAdapter:
         images, warnings = self.visual.search(query, list(docs.values()), self.visual.config.max_images)
         # Different encoders have incomparable cosine scores. Fuse ranks, not vectors/scores.
         from sage_scholar.visual.fusion import fuse
-        return fuse(text, images, top_k + self.visual.config.max_images), retrieval_warnings + warnings
+        return fuse(text, images, top_k + self.visual.config.max_images, max_pages=top_k), retrieval_warnings + warnings
 
     async def read_documents(self, *, policy: SourcePolicy) -> list[EvidenceRef]:
         return await cooperative_thread(self.read_documents_sync, policy)

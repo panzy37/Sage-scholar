@@ -4,6 +4,12 @@ from dataclasses import dataclass, field
 
 @dataclass
 class VisualConfig:
+    embedding_provider: str = field(default_factory=lambda: os.getenv("VISUAL_EMBEDDING_PROVIDER", "local"))
+    embedding_base_url: str = field(default_factory=lambda: os.getenv("VISUAL_EMBEDDING_BASE_URL", "http://127.0.0.1:18001/v1"))
+    embedding_timeout: float = field(default_factory=lambda: float(os.getenv("VISUAL_EMBEDDING_TIMEOUT", "120")))
+    # Store the variable name, never a credential in manifests/eval configuration.
+    embedding_api_key_env: str = "VISUAL_EMBEDDING_API_KEY"
+    embedding_dimensions: int = field(default_factory=lambda: int(os.getenv("VISUAL_EMBEDDING_DIMENSIONS", "2048")))
     enabled: bool = field(default_factory=lambda: os.getenv("PDF_VISUAL_ENABLED", "true").lower() == "true")
     parser: str = field(default_factory=lambda: os.getenv("PDF_VISUAL_PARSER", "docling"))
     embedding_model: str = field(default_factory=lambda: os.getenv("VISUAL_EMBEDDING_MODEL", "Qwen/Qwen3-VL-Embedding-2B"))
@@ -18,6 +24,15 @@ class VisualConfig:
     run_tokens: int = field(default_factory=lambda: int(os.getenv("VISION_RUN_IMAGE_TOKENS", "60000")))
 
     def __post_init__(self):
+        from urllib.parse import urlsplit
+        if self.embedding_provider not in {"local", "remote"}:
+            raise ValueError("VISUAL_EMBEDDING_PROVIDER must be local or remote")
+        if self.embedding_timeout <= 0 or self.embedding_dimensions < 1:
+            raise ValueError("Invalid visual embedding timeout/dimensions")
+        url = urlsplit(self.embedding_base_url)
+        if self.embedding_provider == "remote" and (url.scheme not in {"http", "https"}
+                or not url.hostname or url.username or url.password or url.query or url.fragment):
+            raise ValueError("Invalid visual embedding base URL; use API key environment variable for credentials")
         if self.parser not in {"docling", "page"}:
             raise ValueError("PDF_VISUAL_PARSER must be docling or page")
         if not 1 <= self.max_pages <= 1000 or not 256 <= self.max_side <= 4096:
