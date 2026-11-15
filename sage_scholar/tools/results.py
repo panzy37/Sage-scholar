@@ -3,6 +3,15 @@ import json
 import re
 
 
+def is_empty_result(result):
+    """A typed empty observation means no progress, not a network failure."""
+    try:
+        value = json.loads(result)
+    except (ValueError, TypeError):
+        return False
+    return isinstance(value, dict) and value.get("status") == "empty" and value.get("reason") == "empty_result"
+
+
 def is_error_result(result):
     if re.match(r"\s*(?:Error:|Failed:|<error>)", result, re.I):
         return True

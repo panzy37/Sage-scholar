@@ -32,7 +32,7 @@ class QueryRouter:
         # An explicit workflow override changes the operation, not permissions. When the
         # model treated it as direct, resolve the explicitly supplied local QA context.
         effective = intent
-        if requested_workflow == Workflow.QA and intent.workflow=='direct' and intent.source_scope==SourceScope.CONVERSATION:
+        if requested_workflow in {Workflow.QA, Workflow.DEEP_RESEARCH} and intent.source_scope==SourceScope.CONVERSATION and (selected or requested_scope in {SourceScope.WORKSPACE, SourceScope.SELECTED_DOCUMENTS} or requested_workflow == Workflow.QA):
             effective = intent.model_copy(update={'source_scope':SourceScope.SELECTED_DOCUMENTS if selected else SourceScope.WORKSPACE})
         if requested_workflow == Workflow.DIRECT or (not requested_workflow and intent.workflow=='direct'):
             effective = intent.model_copy(update={'source_scope':SourceScope.CONVERSATION})

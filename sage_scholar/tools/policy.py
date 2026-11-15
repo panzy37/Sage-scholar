@@ -50,6 +50,11 @@ class EvidenceTool(BaseTool):
                            "evidence_ids": [], "kind": "error"})
             raise
         observation = {"tool": self.name, "parameters": parameters, "text": result, "evidence_ids": []}
+        if not result.strip():
+            observation["kind"] = "empty_result"
+            self._observe(observation)
+            return json.dumps({"status": "empty", "reason": "empty_result",
+                "message": "未取得内容；优先读取已有线索的原文，或换用其他来源，不要重复微调搜索。"}, ensure_ascii=False)
         failed = bool(re.match(r"\s*(error|failed|exception|错误|失败|404|403)\b", result, re.I))
         status_only = False
         try:

@@ -10,7 +10,7 @@ from sage_scholar.runtime.journal import WorkflowInterrupted
 from sage_scholar.runtime.control import ResearchBudgetReached, check_control
 from sage_scholar.domain.research import ResearchNote
 from sage_scholar.research.notes import validate_note
-from sage_scholar.tools.results import is_error_result
+from sage_scholar.tools.results import is_error_result, is_empty_result
 from sage_scholar.tools.base_tool import BaseTool
 from ..base import AgentBase, llm_client, Message
 
@@ -51,6 +51,7 @@ class Researcher(AgentBase):
             "优先获取具体方法、数据、条件、单位与局限，按用户目标与来源权限行动。"
             "只能调用工具 schema 中提供的能力；不要假设存在 rag_search 或联网工具。"
             "搜索结果是线索，必须打开原文或读取论文才能作为最终证据。"
+            "获得相关线索后，先读取至少一个相关原文再继续扩展搜索；空结果不算进展，避免仅微调关键词反复搜索。"
             "核心论文应按需精读 Method、Experiments、Limitations，解释训练目标、公式与实验条件；"
             "原文已外置时使用 read_context_artifact 按 offset 回读，不要仅靠摘要推断实验。"
             "本地 PDF 图像检索结果只是来源定位；涉及曲线、结构图或表格视觉细节时，"
@@ -253,7 +254,7 @@ class Researcher(AgentBase):
 
         # A paper body may legitimately contain a line beginning with "Failed".
         # Only the tool result envelope, never arbitrary source text, determines failure.
-        failed = failed or is_error_result(tool_result)
+        failed = failed or is_error_result(tool_result) or is_empty_result(tool_result)
         final_result = self._externalize(tool_result)
         if failed:
             self._consecutive_failures += 1

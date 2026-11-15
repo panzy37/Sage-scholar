@@ -12,6 +12,7 @@ from .conversation import ConversationStore, ConversationContext
 from .policies import policy_for
 from .protection import protected_facts, user_constraints
 from .memory_view import MemoryContextView
+from .source_view import compact_location
 
 CURRENT_REQUEST = ContextVar("sage_execution_request", default=None)
 PROTECTED_PREFIX = (
@@ -96,7 +97,8 @@ class ContextManager:
         def walk(value):
             if isinstance(value, dict):
                 if "evidence_id" in value or "source_id" in value or "offset" in value:
-                    result.append({key: item for key, item in value.items() if key in keys})
+                    result.append({key: compact_location(item) if key == "location" else item
+                                   for key, item in value.items() if key in keys})
                 for item in value.values():
                     if isinstance(item, (list, dict)):
                         walk(item)
@@ -159,6 +161,8 @@ class ContextManager:
 
         def walk(value):
             if isinstance(value, dict):
+                if "evidence_id" in value and isinstance(value.get("location"), dict):
+                    value["location"] = compact_location(value["location"])
                 original = value.get("original_text")
                 # EvidenceRef's API compatibility alias must not double source text in prompts.
                 if "evidence_id" in value and isinstance(original, str) and value.get("text") == original:
@@ -363,7 +367,7 @@ class ContextManager:
             records.append({"evidence_id": identity, "source_id": item.source_id,
                 "document_id": item.document_id, "source_version": item.source_version,
                 "parser_version": item.parser_version, "section": item.section,
-                "page": item.page, "location": item.location, "original_text": selected,
+                "page": item.page, "location": compact_location(item.location), "original_text": selected,
                 "truncated": selected != item.original_text})
         return records
 
@@ -372,5 +376,5 @@ class ContextManager:
         start, size = max(0, offset), min(12000, max(1, limit))
         return {"evidence_id": identity, "source_id": item.source_id, "source_version": item.source_version,
                 "document_id": item.document_id, "parser_version": item.parser_version,
-                "section": item.section, "page": item.page, "location": item.location, "offset": start, "original_text": item.original_text[start:start + size],
+                "section": item.section, "page": item.page, "location": compact_location(item.location), "offset": start, "original_text": item.original_text[start:start + size],
                 "total_chars": len(item.original_text)}

@@ -31,7 +31,8 @@ def test_overview_reads_every_section_without_top_k(library):
     assert pipeline.allowed is None
     assert result.reading_strategy == "overview"
     sections = [messages[-1]["content"] for messages, tag in model.calls if tag == "qa_section"]
-    assert len(sections) == 3
+    assert 0 < len(sections) < 3  # Small sections share a bounded reading batch.
+    assert all(item.original_text in "\n".join(sections).replace("\\n", "\n") for item in result.evidence)
     assert any("Needs more testing" in text for text in sections)
     assert {item.section for item in result.evidence} == {"Method", "Experiments", "Limitations"}
 
@@ -71,5 +72,7 @@ def test_overview_covers_more_than_top_five_chunks(library):
     model = FakeModel("summary")
     result = asyncio.run(QAService(adapter, model).answer(request("概括全文", uploaded.document_id)))
     assert len(result.evidence) == 12
-    assert sum(tag == "qa_section" for _, tag in model.calls) == 12
+    batches = [messages[-1]["content"] for messages, tag in model.calls if tag == "qa_section"]
+    assert 0 < len(batches) < 12
+    assert all(f"Distinct finding {i}" in "\n".join(batches) for i in range(12))
     assert any("Distinct finding 11" in messages[-1]["content"] for messages, tag in model.calls if tag == "qa_section")

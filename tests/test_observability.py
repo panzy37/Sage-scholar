@@ -275,7 +275,7 @@ def test_real_llm_sdk_retry_usage_and_privacy(tmp_path, telemetry):
             "usage": {"prompt_tokens": 30, "completion_tokens": 5, "total_tokens": 35}})
     class Context:
         def prepare(self, messages, **kwargs):
-            return SimpleNamespace(messages=messages, accounting={"total_tokens": 50, "input_tokens": 30})
+            return SimpleNamespace(messages=messages, accounting={"total_tokens": 50, "input_tokens": 30, "max_tokens": 10000})
     client = LLMClient(model="test-model", api_key="SECRET_KEY", base_url="https://test.invalid/v1", context_manager=Context())
     client.client.close()
     client.client = OpenAI(api_key="SECRET_KEY", base_url="https://test.invalid/v1", max_retries=1,

@@ -148,7 +148,12 @@ class RunManager:
             return "restart_required：当前版本没有该 workflow runner。"
         return None
 
-    async def resume(self, run_id):
+    async def resume(self, run_id, *, budget_extension=None):
+        if budget_extension is not None:
+            allowed = {"max_total_tokens", "max_tool_calls", "max_seconds"}
+            if (not isinstance(budget_extension, dict) or set(budget_extension) - allowed
+                    or any(type(v) is not int or v < 0 for v in budget_extension.values())):
+                raise ValueError("续作预算只能增加非负整数 tokens、工具次数或运行秒数")
         state = self._runs.get(run_id)
         if not state:
             raise KeyError(run_id)
@@ -171,7 +176,9 @@ class RunManager:
         if state.snapshot.status in {RunStatus.FAILED, RunStatus.PARTIAL, RunStatus.CANCELLED}:
             old = execution_budget(state.snapshot.workflow, state.snapshot.execution.budget)
             ceiling = ExecutionLimits.model_fields
-            extension = execution_budget(state.snapshot.workflow)
+            extension = (execution_budget(state.snapshot.workflow) if budget_extension is None
+                         else {key: budget_extension.get(key, 0) for key in
+                               ("max_total_tokens", "max_tool_calls", "max_seconds")})
             for key in ("max_total_tokens", "max_tool_calls", "max_seconds"):
                 maximum = next(m.le for m in ceiling[key].metadata if hasattr(m, "le"))
                 old[key] = min(maximum, old[key] + extension[key])

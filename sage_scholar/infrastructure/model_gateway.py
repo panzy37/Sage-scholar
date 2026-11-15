@@ -5,6 +5,7 @@ import threading
 
 from sage_scholar.base import LLMClient
 from sage_scholar.config import Config
+from sage_scholar.application.ports import ModelText
 
 
 class LegacyModelGateway:
@@ -59,4 +60,4 @@ class LegacyModelGateway:
             tag,
             **({"images": images} if images else {}),
         )
-        return response.content or ""
+        return ModelText(response)

@@ -10,6 +10,7 @@ from sage_scholar.tools.tool_rag import RAGTool
 from sage_scholar.tools.tool_sections import DocumentSectionsTool
 from sage_scholar.tools.tool_pdf_visual import PDFVisualTool
 from sage_scholar.tools.base_tool import BaseTool, ToolCallError
+from sage_scholar.application.ports import ModelText
 
 
 class SkillSupport:
@@ -78,7 +79,7 @@ class SkillSupport:
                 defer_images=bool(self.skills.selected(request)), visual_state=visual_state,
                 tag=tag, max_rounds=6 if tag == "qa" else 3, images=images,
                 finish_when=lambda: initial_empty and supplementary["attempted"] and not records and not self.skills.selected(request))
-        return response.content or ""
+        return ModelText(response)
 
 
 class SupplementTool(BaseTool):

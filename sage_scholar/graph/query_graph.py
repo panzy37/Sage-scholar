@@ -199,7 +199,8 @@ class QueryGraphRunner:
             with request_context(execution):
                 value = wait(self.qa.answer(execution))
                 check_control()
-            return {"outcome": RunOutcome(result={"answer": value.answer,
+            return {"outcome": RunOutcome(status="partial" if value.partial_reason else "completed",
+                reason=value.partial_reason, remaining_gaps=[value.partial_reason] if value.partial_reason else [], result={"answer": value.answer,
                 "evidence": [e.model_dump(mode="json") for e in value.evidence], "citations": value.citations,
                 "citation_issues": value.citation_issues, "reading_strategy": value.reading_strategy}), "execution": execution}
 

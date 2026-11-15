@@ -139,7 +139,10 @@ class MCPClient:
                         result: CallToolResult = future.result(timeout=min(.2, max(.001, deadline - time.monotonic())))
                         break
                     except TimeoutError:
-                        if time.monotonic() >= deadline:
+                        # Future.result raises the same exception for a polling
+                        # wait and for an already completed async timeout. Do
+                        # not spin until cleanup deadline on a finished call.
+                        if future.done() or time.monotonic() >= deadline:
                             raise
             except WorkflowInterrupted:
                 future.cancel()  # Cancel this request, never the shared MCP server.

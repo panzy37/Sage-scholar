@@ -138,3 +138,11 @@ def test_partial_source_labels_remain_valid_and_unscored_fields_stay_absent(tmp_
     scores = evaluate('router', load(path)[0], {'allow_web': True}, 5)
     assert scores['allow_web_accuracy'] == 1
     assert 'workflow_accuracy' not in scores and 'source_scope_accuracy' not in scores
+
+
+def test_explicit_local_research_survives_direct_classifier_without_web_grant():
+    result=route('direct','conversation',requested_workflow='deep_research',
+                 document_ids=['a'],catalog=CATALOG,allow_web=False)
+    assert result.workflow=='deep_research'
+    assert result.document_ids==['a'] and not result.allow_web
+    assert result.source_scope=='selected_documents'

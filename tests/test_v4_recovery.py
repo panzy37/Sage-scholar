@@ -158,7 +158,8 @@ def test_recovery_blocks_only_unknown_calls_that_require_manual_review(tmp_path)
 
 
 @pytest.mark.parametrize("status", [RunStatus.FAILED, RunStatus.PARTIAL])
-def test_explicit_failed_or_partial_resume_extends_run_budget(tmp_path, status):
+@pytest.mark.parametrize("extension,expected", [(None, 1_200_000), ({}, 600_000), ({"max_total_tokens":300_000}, 900_000)])
+def test_explicit_failed_or_partial_resume_extends_run_budget(tmp_path, status, extension, expected):
     store = RunStore(str(tmp_path))
     request, now = research_request(), utc_now()
     request = request.model_copy(update={"run_id": "run", "budget": {
@@ -185,8 +186,11 @@ def test_explicit_failed_or_partial_resume_extends_run_budget(tmp_path, status):
     async def scenario():
         manager = RunManager(store=store, checkpoints=CompatibleCheckpoints())
         manager.register_runners({request.workflow: Runner()})
-        resumed = await manager.resume("run")
-        assert resumed.execution.budget["max_total_tokens"] == 1_200_000
+        resumed = await manager.resume("run", budget_extension=extension)
+        assert resumed.execution.budget["max_total_tokens"] == expected
+        if extension is not None:
+            assert resumed.execution.budget["max_tool_calls"] == 100
+            assert resumed.execution.budget["max_seconds"] == 3600
         assert resumed.execution.metadata["continuation"] == 1
         await started.wait()
         release.set()

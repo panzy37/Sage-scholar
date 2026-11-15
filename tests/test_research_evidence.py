@@ -47,7 +47,8 @@ def test_tool_error_and_metadata_are_observations(tmp_path, result):
     store, captured, observations = JsonEvidenceStore(str(tmp_path)), [], []
     output = EvidenceTool(SourceReader(result), store, captured.append, observations.append).run_tool(
         {"url": "https://example.org"})
-    assert "Observation" in output or output.startswith("Error:")
+    from sage_scholar.tools.results import is_empty_result
+    assert "Observation" in output or output.startswith("Error:") or is_empty_result(output)
     assert captured == [] and observations[0]["evidence_ids"] == []
 
 
@@ -58,6 +59,23 @@ def test_unopened_search_snippets_are_not_evidence(tmp_path):
     result = EvidenceTool(tool, JsonEvidenceStore(str(tmp_path)), captured.append).run_tool(
         {"url": "https://example.org"})
     assert captured == [] and "Observation" in result
+
+
+def test_empty_discovery_stops_after_bounded_no_progress(tmp_path):
+    calls, observations = [], []
+    class EmptySearch(SourceReader):
+        evidence_kind = "observation"
+        def run_tool(self, parameters):
+            calls.append(parameters)
+            return "  "
+    tool = EvidenceTool(EmptySearch(), JsonEvidenceStore(str(tmp_path)), lambda x: None, observations.append)
+    researcher = Researcher("empty", ScriptedLLM(), [tool])
+    for n in range(5):
+        researcher._execute_tool("fetch", {"query": f"variation {n}"}, f"call_{n}", "research")
+    assert len(calls) == 3
+    assert researcher._consecutive_failures == 5
+    assert researcher._successful_calls == {}
+    assert all(o["kind"] == "empty_result" and not o["evidence_ids"] for o in observations)
 
 
 def test_source_text_is_preserved_with_stable_version_and_chunk_locations(tmp_path):

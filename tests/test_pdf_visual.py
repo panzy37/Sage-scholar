@@ -118,7 +118,7 @@ def test_visual_failure_keeps_text_available_and_reports_it(library):
 
 def test_encoder_preserves_modality_and_normalizes():
     import numpy as np
-    encoder = VisualEmbedding(VisualConfig())
+    encoder = VisualEmbedding(VisualConfig(embedding_provider="local"))
     calls = []
     def encode(inputs, **kwargs):
         calls.append(inputs)

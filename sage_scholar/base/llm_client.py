@@ -170,6 +170,10 @@ class LLMClient:
                                                  summary_mode=tag == "context:compress",
                                                  model_context_limit=limits.context - image_tokens if limits.context else None)
         messages = prepared.messages
+        from sage_scholar.context.provider_budget import check_provider_budget
+        prepared.accounting["provider_boundary"] = check_provider_budget(
+            self.model, messages, tools, tool_choice, max_tokens + image_tokens,
+            limits.context or prepared.accounting["max_tokens"])
         if images:
             from sage_scholar.visual.transport import attach_images
             if prepared.accounting["total_tokens"] + image_tokens > limits.context:
