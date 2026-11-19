@@ -9,8 +9,8 @@ from uuid import uuid4
 import pytest
 from openai.types.chat import ChatCompletionMessage
 
-from sage_scholar.skills import SkillService, SkillRegistry, SkillError
-from sage_scholar.skills.service import STATE_KEY
+from sage_scholar.skill_runtime import SkillService, SkillRegistry, SkillError
+from sage_scholar.skill_runtime.service import STATE_KEY
 from sage_scholar.context.manager import ContextManager, request_context
 from sage_scholar.runtime.store import RunStore
 from sage_scholar.runtime.checkpoints import Checkpoints
@@ -79,7 +79,7 @@ def test_discovery_only_reads_frontmatter_and_refs_are_lazy(setup, monkeypatch):
     registry = SkillRegistry(root)
     assert "UNREAD_BODY" not in json.dumps(registry.catalog())
     monkeypatch.setattr(Path, "read_text", original)
-    from sage_scholar.skills import loader
+    from sage_scholar.skill_runtime import loader
     reads, original_read = [], loader.read_bounded
     def tracked(path, expected=None):
         reads.append(path.name)

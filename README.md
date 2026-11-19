@@ -86,30 +86,3 @@ docker compose down  # Keeps named data/model volumes; do not add -v to retain d
 ```
 
 [Docker deployment](docs/deployment/docker.md) covers the optional Ollama profile, model-cache reuse, visual dependencies, proxy settings, backups and verification. For local development, the existing `./setup.sh` is unchanged: [local setup](docs/local-development.md).
-
-## Evaluation
-
-Recorded results, not a claim of independent generalization:
-
-| Evaluation | Conditions | Recorded result |
-|---|---|---|
-| Router regression, 2026-11-04 | 144 behavior cases, local Qwen3.5:2b, macOS ARM64; candidate labels used during prompt refinement | Accuracy **90.28%**; Clarify precision **73.68%**, recall **82.35%**, F1 **77.78%** |
-| Reranker baseline, 2026-10-23 | 14 source-checked passage questions (7 Chinese / 7 English), identical candidates, CPU; MiniLM-L-6-v2 | Recall@3 **0.857**, MRR **0.810**, nDCG **0.821** |
-
-The Router set is a **development/regression set**, with remaining QA/Research confusions. The reranker snapshot did not load BGE successfully; BGE is now the configurable default, but that snapshot does **not** establish its superiority. These results do not measure end-to-end research factual accuracy.
-
-See [Router results and conditions](docs/router-evaluation.md), [reranker report](evals/reports/reranker-20261023-111606.md), and the [Eval runner and quality gates](evals/README.md). Mock, live-model and historical-Run evaluations are separated; default CI does not make paid LLM calls.
-
-## Documentation
-
-- [Deployment and persistence](docs/deployment/docker.md) · [Local development](docs/local-development.md)
-- [Configuration](docs/configuration.md) · [Architecture](docs/architecture.md)
-- [RAG and PDF retrieval](docs/rag.md) · [Deep Research](docs/deep-research.md)
-- [Router evaluation](docs/router-evaluation.md) · [Observability](docs/observability.md)
-- [Troubleshooting](docs/faq.md) · [Historical implementation notes](docs/implementation-notes.md)
-
-## Acknowledgements and licensing
-
-Built from reusable components of [SAGE Research](https://github.com/qinyu8028/sage-research), with design references including [Yuxi](https://github.com/xerrors/Yuxi), [deepresearch-agent](https://github.com/qiqihezh/deepresearch-agent), and [Hermes Agent](https://github.com/NousResearch/hermes-agent). See the [migration map](docs/migration-map.md) for source attribution.
-
-A project-wide LICENSE has not yet been added to this repository. Upstream code, dependencies and model weights retain their respective license requirements; this README does not grant a new license.

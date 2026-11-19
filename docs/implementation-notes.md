@@ -436,7 +436,7 @@ python -m sage_scholar.mcp.check --server tavily
 - `citation-check` 的固定元数据允许在已有研究笔记但没有可回读原文时报告 `unverifiable`，结果仍为 partial；普通调研及执行异常不因此获得“无证据完成”豁免。
 - ContextManager 固定一份已选主规范，剔除工具结果中的重复主正文；参考文件按普通工具观察管理，可重新按需加载。`skills` 单独纳入 Context token accounting。不会写入 EvidenceStore、文献 RAG 或用户长期 Memory。
 
-实现参考 [Hermes Agent 的 Skills 工具](https://github.com/NousResearch/hermes-agent/blob/main/tools/skills_tool.py) 的通用工具调用和渐进式披露，未引入其市场、自动生成、脚本执行或外部插件安装机制。项目 Skill 文件在 `skills/`，Python 实现在 `sage_scholar/skills/`。
+实现参考 [Hermes Agent 的 Skills 工具](https://github.com/NousResearch/hermes-agent/blob/main/tools/skills_tool.py) 的通用工具调用和渐进式披露，未引入其市场、自动生成、脚本执行或外部插件安装机制。项目 Skill 文件在 `skills/`，Python 实现在 `sage_scholar/skill_runtime/`。
 
 
 ## 结构化文本索引与兼容迁移

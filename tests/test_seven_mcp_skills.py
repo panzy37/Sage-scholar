@@ -8,8 +8,8 @@ from mcp.types import Tool
 
 from sage_scholar.mcp.lifecycle import MCPLifecycle
 from sage_scholar.research.runtime import ResearchRuntimeProvider
-from sage_scholar.skills import SkillService, SkillRegistry, SkillError
-from sage_scholar.skills.service import STATE_KEY
+from sage_scholar.skill_runtime import SkillService, SkillRegistry, SkillError
+from sage_scholar.skill_runtime.service import STATE_KEY
 from sage_scholar.runtime.journal import WorkflowInterrupted
 from test_skills import setup, request
 from test_document_evidence import library

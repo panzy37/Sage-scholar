@@ -39,7 +39,7 @@ class ApplicationContainer:
             history_tokens=self.config.context.history_tokens, report_tokens=self.config.context.report_tokens,
             agent_tokens=self.config.context.agent_tokens)
         self.context_manager.run_store = self.run_store
-        from sage_scholar.skills import SkillService
+        from sage_scholar.skill_runtime import SkillService
         self.skills = SkillService(self.run_store)
         self.context_manager.skills = self.skills
         self.model_gateway = LegacyModelGateway(self.config)
