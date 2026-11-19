@@ -1,3 +1,4 @@
+# 功能：组合近期对话与持久化增量摘要，控制历史上下文长度。
 """Recent raw turns plus durable, incremental summaries. Summaries are never Evidence."""
 from dataclasses import dataclass
 import hashlib

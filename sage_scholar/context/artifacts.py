@@ -1,3 +1,4 @@
+# 功能：将大型工具结果保存为外部文件，供后续按需回读。
 """Large untrusted context is persisted outside prompts, without becoming Evidence."""
 import hashlib
 import json

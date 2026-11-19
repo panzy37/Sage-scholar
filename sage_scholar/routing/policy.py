@@ -1,3 +1,4 @@
+# 功能：以确定性规则校验路由决策的数据来源与执行权限。
 """Deterministic permission validator. No keyword-based workflow classifier."""
 from .classifier import SemanticIntent
 from .models import RouteDecision, Workflow, SourceScope, ExecutionMode

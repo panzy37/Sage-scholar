@@ -1,3 +1,4 @@
+# 功能：定义执行请求、执行结果与数据来源和工具权限策略。
 from __future__ import annotations
 
 from typing import Any, Literal

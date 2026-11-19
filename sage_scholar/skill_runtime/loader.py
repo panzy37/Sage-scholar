@@ -1,3 +1,4 @@
+# 功能：加载并校验技能内容快照，按需读取参考文件。
 """Bounded content-addressed snapshots, with reference bodies disclosed only on demand."""
 import hashlib
 import json

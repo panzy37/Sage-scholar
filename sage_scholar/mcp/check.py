@@ -1,3 +1,4 @@
+# 功能：通过命令行检查应用配置下的真实 MCP 工具调用。
 """Exercise one actual MCP call using the application's configuration, without an LLM."""
 import argparse
 import json

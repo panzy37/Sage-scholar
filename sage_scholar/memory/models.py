@@ -1,3 +1,4 @@
+# 功能：定义记忆来源、候选、记录及作用域可见性规则。
 """Durable memory is user background, never a citation source."""
 import hashlib
 import json

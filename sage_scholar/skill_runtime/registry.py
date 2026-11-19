@@ -1,3 +1,4 @@
+# 功能：发现技能元数据，并校验技能名称与文件访问路径。
 """Metadata-only discovery. Skill bodies and references are not read at startup."""
 from dataclasses import dataclass
 from pathlib import Path, PurePosixPath, PureWindowsPath

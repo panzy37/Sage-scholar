@@ -1,3 +1,4 @@
+# 功能：通过共享模型、上下文和预算机制读取 PDF 页面图像。
 """Read retrieved PDF pixels through the shared LLM/context/budget infrastructure."""
 from .base_tool import BaseTool, ToolParameter
 

@@ -1,3 +1,4 @@
+# 功能：提供共享文件锁与原子替换写入，保护 JSON 存储。
 """Small single-process JSON stores: shared locks and atomic file replacement."""
 from __future__ import annotations
 

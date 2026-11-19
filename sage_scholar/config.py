@@ -1,3 +1,4 @@
+# 功能：集中定义模型、上下文、生成参数和路由等应用配置。
 import os
 from dataclasses import dataclass, field
 from pathlib import Path

@@ -1,3 +1,4 @@
+# 功能：为模型、工具和工作流阶段添加耗时、用量及状态观测。
 """Narrow adapters for our custom model/tool/node boundaries, without payload capture."""
 from contextlib import contextmanager
 from functools import wraps

@@ -1,3 +1,4 @@
+# 功能：使用 JSON 文件持久化文档目录及版本记录。
 from __future__ import annotations
 
 import hashlib

@@ -1,3 +1,4 @@
+# 功能：提供重建 PDF 视觉索引的命令行入口。
 """Rebuild uploaded PDFs without touching the existing text embedding index."""
 import argparse
 import json

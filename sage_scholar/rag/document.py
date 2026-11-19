@@ -1,3 +1,4 @@
+# 功能：定义文档、来源元素与文本分块的数据结构。
 from __future__ import annotations
 import hashlib
 import json

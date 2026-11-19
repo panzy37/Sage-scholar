@@ -1,3 +1,4 @@
+# 功能：定义执行任务状态、事件和状态快照。
 from __future__ import annotations
 
 from datetime import datetime, timezone

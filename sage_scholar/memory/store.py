@@ -1,3 +1,4 @@
+# 功能：原子保存记忆版本与抽取回执，并检测并发更新冲突。
 """Atomic temporal memories and extraction receipts; indexes remain disposable."""
 import json
 import os

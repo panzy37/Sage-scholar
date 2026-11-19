@@ -1,3 +1,4 @@
+# 功能：估算文本 Token 数量并按预算裁剪文本。
 import tiktoken
 
 from ..base import Message

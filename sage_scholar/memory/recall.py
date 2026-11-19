@@ -1,3 +1,4 @@
+# 功能：结合词法与语义相似度检索长期记忆，并维护可重建索引。
 """Small rebuildable memory index using the existing embedding and cosine implementation."""
 import hashlib
 import json

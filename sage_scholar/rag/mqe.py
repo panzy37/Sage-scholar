@@ -1,3 +1,4 @@
+# 功能：通过模型将原查询扩展为多个检索查询。
 from ..base import LLMClient
 
 

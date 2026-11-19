@@ -1,3 +1,4 @@
+# 功能：将长期记忆投影为允许进入提示词的有限字段。
 """Allowlisted Memory projection for prompts; provenance stays in the Memory Store."""
 from pydantic import BaseModel, ConfigDict
 from sage_scholar.memory.models import MemoryRecord, MemoryType, Scope

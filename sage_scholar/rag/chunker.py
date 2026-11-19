@@ -1,3 +1,4 @@
+# 功能：按文档结构和 Token 上限分块，同时保留来源定位信息。
 """Structure-first, token-bounded chunking with stable source locators."""
 import re
 

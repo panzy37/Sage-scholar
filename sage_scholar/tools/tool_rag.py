@@ -1,3 +1,4 @@
+# 功能：将本地文档检索封装为 Agent 可调用的工具。
 from .base_tool import BaseTool, ToolParameter
 
 

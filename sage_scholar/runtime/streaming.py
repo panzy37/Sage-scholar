@@ -1,3 +1,4 @@
+# 功能：从模型响应流中增量提取文本，供上层逐步发送。
 """Incremental text delivery without changing the shared model client lifetime."""
 import time
 from openai.types.chat import ChatCompletionMessage

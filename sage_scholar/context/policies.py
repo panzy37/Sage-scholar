@@ -1,3 +1,4 @@
+# 功能：为不同调用场景分配独立的上下文预算策略。
 """Immutable per-call allocations; a shared manager never mutates its global budget."""
 from dataclasses import dataclass
 

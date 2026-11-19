@@ -1,3 +1,4 @@
+# 功能：定义工作流类型、来源范围、执行模式与路由决策。
 from __future__ import annotations
 
 from enum import StrEnum

@@ -1,3 +1,4 @@
+# 功能：实施单个执行任务的协作式取消、时间和累计用量限制。
 """Per-Run cooperative cancellation and execution budgets, separate from Context size."""
 import asyncio
 import threading

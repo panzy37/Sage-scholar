@@ -1,3 +1,4 @@
+# 功能：将用户查询转换为执行请求，并通过任务管理器启动工作流。
 from __future__ import annotations
 
 from dataclasses import dataclass, field

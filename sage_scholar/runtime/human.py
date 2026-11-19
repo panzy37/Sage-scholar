@@ -1,3 +1,4 @@
+# 功能：定义人工澄清问题、回复及公开中断信息的交互契约。
 """Public interaction contract; workflow state stays in LangGraph."""
 from typing import Literal
 

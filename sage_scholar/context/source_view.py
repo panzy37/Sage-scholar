@@ -1,3 +1,4 @@
+# 功能：压缩提示词中的来源定位信息，并将证据文本分窗打包。
 """Prompt-only source locators; full PDF geometry stays in EvidenceStore."""
 import json
 

@@ -1,3 +1,4 @@
+# 功能：从原始会话消息构建有长度限制的记忆抽取输入。
 """Bounded original conversation snapshots, independent of Context compression."""
 
 

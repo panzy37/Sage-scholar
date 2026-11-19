@@ -1,3 +1,4 @@
+# 功能：管理进程内 MCP 连接生命周期、失败退避和资源关闭。
 """Process-local, per-server lifecycle shared by research and ingestion.
 
 One connection attempt per server per ensure, exponential cooldown capped at five

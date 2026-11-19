@@ -1,3 +1,4 @@
+# 功能：将文本与视觉检索适配到应用接口，按来源权限返回原始证据。
 from __future__ import annotations
 
 from sage_scholar.runtime.control import cooperative_thread

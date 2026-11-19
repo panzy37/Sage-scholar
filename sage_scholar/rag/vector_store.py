@@ -1,3 +1,4 @@
+# 功能：提供分块向量与词法混合检索，以及索引保存和文档同步。
 from __future__ import annotations
 
 import math

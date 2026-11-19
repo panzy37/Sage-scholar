@@ -1,3 +1,4 @@
+# 功能：构建报告来源目录并校验引用编号及来源对应关系。
 """Deterministic reference validation; never judges scientific truth."""
 import re
 from urllib.parse import urlparse

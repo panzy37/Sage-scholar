@@ -1,3 +1,4 @@
+# 功能：提供文档上传、入库、删除、报告保存和视觉索引重建接口。
 import os
 import shutil
 import tempfile

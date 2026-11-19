@@ -1,3 +1,4 @@
+# 功能：定义 PDF 视觉元素及其版本化清单。
 from typing import Literal
 from pydantic import BaseModel, Field
 

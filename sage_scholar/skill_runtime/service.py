@@ -1,3 +1,4 @@
+# 功能：管理每个执行任务选用的技能、固定版本与已加载内容。
 """Run-owned selections; reuses RunStore's results and deletion lifecycle."""
 from copy import deepcopy
 import json

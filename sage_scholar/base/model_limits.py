@@ -1,3 +1,4 @@
+# 功能：定义模型上下文与输出上限，并校验输出预算。
 """Provider ceilings, independent from per-Agent working budgets.
 
 DeepSeek official Chat API, checked 2026-10-15:

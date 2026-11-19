@@ -1,3 +1,4 @@
+# 功能：使用 SQLite 保存执行生命周期、事件、预算、工具日志与任务结果。
 """SQLite lifecycle/event storage and durable execution boundaries, not workflow state."""
 import json
 import sqlite3

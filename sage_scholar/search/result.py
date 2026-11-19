@@ -1,3 +1,4 @@
+# 功能：定义网络搜索结果的数据结构与文本表示。
 from pydantic import BaseModel
 
 

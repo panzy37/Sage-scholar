@@ -1,3 +1,4 @@
+# 功能：构建主管规划、并行研究、审阅补查与报告写作的 LangGraph 工作流。
 """Supervisor → parallel researchers → supervisor review → whole-report writer."""
 import logging
 from typing import Annotated, TypedDict

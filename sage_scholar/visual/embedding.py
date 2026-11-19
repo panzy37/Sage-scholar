@@ -1,3 +1,4 @@
+# 功能：封装对齐的文本查询与图像向量编码，并记录编码器身份。
 """Aligned query/image encoder. No text-embedding fallback for visual vectors."""
 import threading
 

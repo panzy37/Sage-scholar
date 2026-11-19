@@ -1,3 +1,4 @@
+# 功能：提取并保留用户约束和需要保护的上下文信息。
 """Extract restrictions, not every question. No keyword-based factual scoring."""
 import json
 import re

@@ -1,3 +1,4 @@
+# 功能：定义文档记录、版本、入库状态和入库结果。
 from __future__ import annotations
 
 from datetime import datetime, timezone

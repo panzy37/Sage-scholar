@@ -1,3 +1,4 @@
+# 功能：定义研究子问题、任务、笔记、审阅结果和报告等领域对象。
 """Small research records. ExecutionRequest owns the objective, policy and budget."""
 from typing import Literal
 from pydantic import BaseModel, Field

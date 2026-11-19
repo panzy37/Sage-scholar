@@ -1,3 +1,4 @@
+# 功能：使用 RRF 融合文本与视觉检索结果，支持证据级和页级排序。
 """Rank fusion across independent text and image embedding spaces."""
 import os
 

@@ -1,3 +1,4 @@
+# 功能：提取 PDF 文本布局、物理页码和边界框，保存结构化定位信息。
 """Optional PyMuPDF layout adapter: real page/bbox provenance, no guessed pages.
 
 The original PDF and pdfmux Markdown remain immutable. A sidecar supplies text

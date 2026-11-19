@@ -1,3 +1,4 @@
+# 功能：组织文档检索、证据阅读与答案生成，处理引用和不完整结果。
 from __future__ import annotations
 
 from dataclasses import dataclass, field

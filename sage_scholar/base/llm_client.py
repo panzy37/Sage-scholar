@@ -1,3 +1,4 @@
+# 功能：封装模型提供商调用、消息转换、上下文摘要与用量统计。
 import json
 import os, logging, time
 from openai import OpenAI, DefaultHttpxClient

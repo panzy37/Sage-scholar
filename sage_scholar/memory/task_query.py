@@ -1,3 +1,4 @@
+# 功能：生成稳定的任务相关记忆查询，排除不断增长的工具观察内容。
 """Stable task-aware recall input, excluding growing observations and source bodies."""
 import json
 

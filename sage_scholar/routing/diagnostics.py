@@ -1,3 +1,4 @@
+# 功能：采集可选路由诊断信息，并对敏感字段进行脱敏。
 """Opt-in, context-local evaluation trace; never attached to ordinary API responses."""
 from contextlib import contextmanager
 from contextvars import ContextVar

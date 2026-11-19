@@ -1,3 +1,4 @@
+# 功能：读取当前请求冻结的会话历史及原报告引用映射。
 """Read the frozen request history and its original report maps, never another conversation."""
 import json
 from .base_tool import BaseTool, ToolParameter

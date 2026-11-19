@@ -1,3 +1,4 @@
+# 功能：封装可选追踪 Span 与生命周期事件，并限制导出字段。
 """Safe structured spans. OTel is optional and never owns business state."""
 import asyncio
 from contextlib import contextmanager

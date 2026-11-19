@@ -1,3 +1,4 @@
+# 功能：在保留已完成研究笔记的基础上恢复同一研究图。
 """Resume the same graph with current budgets and preserved completed Markdown notes."""
 
 

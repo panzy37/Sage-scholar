@@ -1,3 +1,4 @@
+# 功能：在证据标识与展示编号之间转换引用，并保留来源对应关系。
 """Citation identity stays in evidence IDs; numeric labels are a view."""
 from __future__ import annotations
 

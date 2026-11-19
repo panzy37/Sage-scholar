@@ -1,3 +1,4 @@
+# 功能：定义基础消息对象及其序列化方式。
 from typing import Any, Literal
 from datetime import datetime
 from pydantic import BaseModel, Field

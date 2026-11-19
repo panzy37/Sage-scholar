@@ -1,3 +1,4 @@
+# 功能：组织文档入库、查询检索、重排序与检索结果读取流程。
 import json
 import os
 from datetime import datetime

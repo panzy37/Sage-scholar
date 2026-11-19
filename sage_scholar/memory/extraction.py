@@ -1,3 +1,4 @@
+# 功能：从来源材料提取有依据且适合长期保留的记忆候选。
 """Memory policy: grounded, durable source excerpts eligible for automatic consolidation."""
 import re
 from pydantic import BaseModel, Field

@@ -1,3 +1,4 @@
+# 功能：调度后台记忆抽取任务，并处理恢复、重试与会话取消。
 """Durable extraction scheduler within the application process; not a Research workflow."""
 import asyncio
 import contextvars

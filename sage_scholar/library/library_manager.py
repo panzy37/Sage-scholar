@@ -1,3 +1,4 @@
+# 功能：协调文档转换、文本与视觉索引、版本提交及失败恢复。
 from __future__ import annotations
 
 import hashlib

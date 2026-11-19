@@ -1,3 +1,4 @@
+# 功能：配置项目日志的输出格式和处理器。
 import logging
 import os
 import sys

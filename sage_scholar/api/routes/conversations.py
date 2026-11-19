@@ -1,3 +1,4 @@
+# 功能：提供会话的创建、查询、修改和删除接口。
 from fastapi import APIRouter, HTTPException, Query
 from pydantic import BaseModel, Field
 from ..dependencies import Container

@@ -1,3 +1,4 @@
+# 功能：解析 Markdown 结构块，并保留原始文本字符偏移。
 """Source-preserving Markdown blocks. Offsets always refer to the original text."""
 import hashlib
 import re

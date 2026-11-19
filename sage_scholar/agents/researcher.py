@@ -1,3 +1,4 @@
+# 功能：执行 ReAct 研究循环，调用工具并保存可续作的研究笔记。
 from sage_scholar.context.protection import prompt_brief
 import json
 import logging

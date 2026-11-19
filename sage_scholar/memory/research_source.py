@@ -1,3 +1,4 @@
+# 功能：从持久化研究笔记读取可追溯线索，作为记忆抽取来源。
 """Read durable Markdown research notes as traceable leads, never as factual Evidence."""
 from pydantic import BaseModel
 from .conversation_source import conversation_messages

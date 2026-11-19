@@ -1,3 +1,4 @@
+# 功能：为现有服务执行有轮次上限的模型工具调用循环。
 """Small bounded tool loop for existing services/structured calls, not a new Agent."""
 from copy import deepcopy
 import json

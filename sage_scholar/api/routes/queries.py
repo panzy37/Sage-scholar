@@ -1,3 +1,4 @@
+# 功能：接收用户查询并提交执行任务。
 from fastapi import APIRouter, HTTPException, Response, status
 from sage_scholar.application import QueryCommand
 from ..dependencies import Container

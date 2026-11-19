@@ -1,3 +1,4 @@
+# 功能：根据研究笔记与来源证据生成完整研究报告。
 """Write a complete report directly from researchers' Markdown notes."""
 from sage_scholar.context.protection import prompt_brief
 from sage_scholar.research.materials import encoded

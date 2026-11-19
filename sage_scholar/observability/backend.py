@@ -1,3 +1,4 @@
+# 功能：创建独立的 OpenTelemetry Provider 和遥测导出组件。
 """Private OTel provider; no global auto-instrumentation or content capture."""
 import base64
 from contextvars import ContextVar

@@ -1,3 +1,4 @@
+# 功能：封装搜索调用，并将结果格式化为 Agent 可读取的工具输出。
 import logging
 from typing import Any
 from sage_scholar.mcp.tool_adapter import MCPTool

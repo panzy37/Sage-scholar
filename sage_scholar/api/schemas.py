@@ -1,3 +1,4 @@
+# 功能：定义 HTTP 请求与响应的数据结构及校验规则。
 from __future__ import annotations
 
 from typing import Literal

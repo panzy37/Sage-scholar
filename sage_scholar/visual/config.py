@@ -1,3 +1,4 @@
+# 功能：定义视觉解析、Embedding 服务和图像读取预算配置。
 import os
 from dataclasses import dataclass, field
 

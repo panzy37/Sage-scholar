@@ -1,3 +1,4 @@
+# 功能：根据查询意图选择文档阅读策略。
 from enum import StrEnum
 import re
 

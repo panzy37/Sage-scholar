@@ -1,3 +1,4 @@
+# 功能：持久化工具执行记录，并控制恢复时的重放与安全重试。
 """Durable tool journal with explicit retry safety for ambiguous executions."""
 import hashlib
 import json

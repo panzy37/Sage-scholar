@@ -1,3 +1,4 @@
+# 功能：提供证据详情与原始证据图片的访问接口。
 from fastapi import APIRouter, HTTPException
 from sage_scholar.domain import EvidenceRef
 from ..dependencies import Container

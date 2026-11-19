@@ -1,3 +1,4 @@
+# 功能：串联语义分类、来源解析与权限校验，生成最终路由决策。
 """Single semantic call → source identity resolution → deterministic permissions."""
 from .classifier import LocalClassifier
 from .diagnostics import record

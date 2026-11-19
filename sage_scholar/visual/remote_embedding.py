@@ -1,3 +1,4 @@
+# 功能：调用远程 vLLM 为文本或图片生成向量，并校验维度与数值。
 """vLLM chat embeddings for aligned text/image retrieval; no local fallback."""
 import base64
 import mimetypes

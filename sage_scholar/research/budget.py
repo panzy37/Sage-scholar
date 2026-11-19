@@ -1,3 +1,4 @@
+# 功能：管理研究工具调用额度，并为工具添加预算检查。
 import threading
 from sage_scholar.tools.base_tool import BaseTool, ToolCallError
 

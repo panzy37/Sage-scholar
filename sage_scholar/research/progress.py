@@ -1,3 +1,4 @@
+# 功能：持久化单个 Researcher 的 ReAct 进度，支持中断后续作。
 """Small ReAct resume record in the existing RunStore.results table.
 
 LangGraph owns task scheduling; this only stores an individual task's committed

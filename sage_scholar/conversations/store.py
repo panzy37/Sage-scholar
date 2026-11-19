@@ -1,3 +1,4 @@
+# 功能：使用 SQLite 保存会话、消息及其与执行任务的关联。
 """Conversation and message records share RunStore's SQLite transaction boundary."""
 import json
 from uuid import uuid4

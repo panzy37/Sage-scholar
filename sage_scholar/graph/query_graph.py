@@ -1,3 +1,4 @@
+# 功能：构建查询入口图，衔接路由、直接回答、问答、澄清和深度研究。
 """Single durable entry graph. Research retains its existing private graph/state."""
 import asyncio
 from concurrent.futures import Future, TimeoutError as FutureTimeout

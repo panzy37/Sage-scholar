@@ -1,3 +1,4 @@
+# 功能：提供上下文外置内容与证据的按需读取工具。
 import json
 from sage_scholar.tools.base_tool import BaseTool, ToolParameter
 

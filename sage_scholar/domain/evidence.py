@@ -1,3 +1,4 @@
+# 功能：定义可追溯的证据引用及证据存储接口。
 from __future__ import annotations
 
 import hashlib

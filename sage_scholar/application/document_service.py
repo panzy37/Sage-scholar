@@ -1,3 +1,4 @@
+# 功能：封装文档列表、入库与删除等应用层操作。
 from __future__ import annotations
 
 import asyncio

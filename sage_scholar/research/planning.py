@@ -1,3 +1,4 @@
+# 功能：合并研究范围、检查规划覆盖，并筛选预算内的新增补查任务。
 """Deterministic consolidation of the Supervisor's semantic scope decisions.
 
 The model assigns the same scope_keys to equivalent research outcomes in its

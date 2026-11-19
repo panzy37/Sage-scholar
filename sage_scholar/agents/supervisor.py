@@ -1,3 +1,4 @@
+# 功能：拆分研究问题、审阅研究笔记，并提出补充研究任务。
 """One supervisor plans independent questions and reviews their Markdown notes."""
 from pydantic import BaseModel, Field, model_validator, field_validator
 from sage_scholar.domain.research import SubQuestion, SupervisorReview

@@ -1,3 +1,4 @@
+# 功能：根据当前请求判断是否需要视觉读取，避免额外模型分类调用。
 """Cheap visual demand decision; never adds a classifier/model call to ordinary QA."""
 import re
 

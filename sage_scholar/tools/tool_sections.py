@@ -1,3 +1,4 @@
+# 功能：提供文档章节定位与内容读取工具。
 """Expose existing section extraction as locators, not a second PDF pipeline."""
 import json
 from .base_tool import BaseTool, ToolParameter

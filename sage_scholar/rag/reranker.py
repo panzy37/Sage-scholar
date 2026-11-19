@@ -1,3 +1,4 @@
+# 功能：按需加载交叉编码器进行重排序，并处理缓存与不可用降级。
 """Lazy, shared cross-encoder with bounded score cache and observable RRF fallback."""
 from collections import OrderedDict
 from dataclasses import dataclass, field, asdict

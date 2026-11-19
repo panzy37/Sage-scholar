@@ -1,3 +1,4 @@
+# 功能：将 MCP 工具转换为项目统一的工具接口与调用 Schema。
 from typing import Any
 
 from ..tools import BaseTool

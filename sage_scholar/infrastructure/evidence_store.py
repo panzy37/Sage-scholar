@@ -1,3 +1,4 @@
+# 功能：使用 JSON 文件保存证据，并按证据或来源标识查询。
 from __future__ import annotations
 
 import json

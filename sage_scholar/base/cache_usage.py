@@ -1,3 +1,4 @@
+# 功能：统一不同模型提供商返回的输入缓存用量统计。
 """Normalize reported cache usage. Missing metrics are unknown, never zero hits."""
 
 def field(value, name, default=None):

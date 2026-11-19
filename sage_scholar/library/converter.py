@@ -1,3 +1,4 @@
+# 功能：将输入文档转换为 Markdown，并返回转换元数据。
 import re, os, shutil
 
 from pydantic import BaseModel

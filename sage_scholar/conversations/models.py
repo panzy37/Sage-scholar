@@ -1,3 +1,4 @@
+# 功能：定义会话及消息记录的数据结构。
 """Conversation owns dialogue; Run owns one execution and its durable state."""
 from datetime import datetime
 from typing import Literal

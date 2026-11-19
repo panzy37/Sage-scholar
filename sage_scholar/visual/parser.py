@@ -1,3 +1,4 @@
+# 功能：从 PDF 生成布局区域裁剪和页面图像，保留来源定位。
 """Layout crops plus page fallback. Never equate embedded bitmaps with PDF figures."""
 import hashlib
 import importlib.util

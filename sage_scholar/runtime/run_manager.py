@@ -1,3 +1,4 @@
+# 功能：管理任务启动、状态持久化、取消、中断恢复与事件分发。
 from __future__ import annotations
 
 import asyncio

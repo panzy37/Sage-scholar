@@ -1,3 +1,4 @@
+# 功能：提供技能目录查询与技能文件读取工具。
 import json
 from sage_scholar.tools.base_tool import BaseTool, ToolParameter
 

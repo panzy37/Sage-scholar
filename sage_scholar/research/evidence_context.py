@@ -1,3 +1,4 @@
+# 功能：管理单个研究任务的证据集合，并支持按标识回读原文。
 """Run-scoped evidence access; rereads never perform searches."""
 from pathlib import Path
 import threading

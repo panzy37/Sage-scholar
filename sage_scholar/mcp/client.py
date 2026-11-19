@@ -1,3 +1,4 @@
+# 功能：管理 MCP 服务连接、后台通信与工具调用。
 import asyncio
 import logging
 import os

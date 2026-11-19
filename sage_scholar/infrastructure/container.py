@@ -1,3 +1,4 @@
+# 功能：组装应用服务与基础设施依赖，并统一释放运行资源。
 from __future__ import annotations
 
 from sage_scholar.application.direct_service import DirectService

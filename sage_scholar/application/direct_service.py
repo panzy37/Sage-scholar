@@ -1,3 +1,4 @@
+# 功能：处理无需文档检索或深度研究的直接回答。
 from __future__ import annotations
 
 from sage_scholar.runtime.control import cooperative_thread

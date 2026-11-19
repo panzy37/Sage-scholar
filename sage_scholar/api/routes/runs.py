@@ -1,3 +1,4 @@
+# 功能：提供任务状态、SSE 事件流、取消、恢复及人工回复接口。
 import json
 from fastapi import APIRouter, HTTPException, Request, Query
 from fastapi.responses import StreamingResponse

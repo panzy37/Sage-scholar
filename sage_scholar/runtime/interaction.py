@@ -1,3 +1,4 @@
+# 功能：提供长工作流共用的决策、人工中断与恢复节点。
 """Native LangGraph decision/interrupt nodes shared by long workflows."""
 import json
 from langgraph.types import interrupt, Command

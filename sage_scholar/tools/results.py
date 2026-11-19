@@ -1,3 +1,4 @@
+# 功能：根据工具返回结构判断空结果或执行错误。
 """Only tool envelopes determine failure, never words inside a paper body."""
 import json
 import re

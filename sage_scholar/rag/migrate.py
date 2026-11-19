@@ -1,3 +1,4 @@
+# 功能：提供索引显式迁移与恢复的命令行入口。
 """Explicit migration/recovery without loading an embedding model or parsing PDFs."""
 import argparse
 from pathlib import Path

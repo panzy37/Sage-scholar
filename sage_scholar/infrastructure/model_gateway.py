@@ -1,3 +1,4 @@
+# 功能：将模型调用适配到应用接口，并接入共享上下文管理。
 from __future__ import annotations
 
 from sage_scholar.runtime.control import cooperative_thread

@@ -1,3 +1,4 @@
+# 功能：通过现有模型客户端获取有类型约束的结构化响应。
 """Bounded, typed model responses using the existing provider client."""
 import json_repair
 

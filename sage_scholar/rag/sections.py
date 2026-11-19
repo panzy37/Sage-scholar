@@ -1,3 +1,4 @@
+# 功能：在单次请求内查找文本所属章节与文档版本。
 """Request-local section lookup. No cross-request cache or stale source ownership."""
 import re
 from collections import defaultdict

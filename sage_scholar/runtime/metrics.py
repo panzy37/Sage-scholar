@@ -1,3 +1,4 @@
+# 功能：记录模型阶段用量和工具调用统计，并保留未知缓存指标。
 """Small persisted stage counters; cached-input unknown is not a cache miss."""
 import time
 from sage_scholar.tools.base_tool import BaseTool

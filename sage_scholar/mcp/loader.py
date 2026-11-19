@@ -1,3 +1,4 @@
+# 功能：根据所需能力加载 MCP 配置与客户端，并记录启动状态。
 """Capability-scoped optional MCP startup; public statuses contain no exception text."""
 import json
 import logging

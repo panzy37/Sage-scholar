@@ -1,3 +1,4 @@
+# 功能：将用户指定的文档名称或引用解析为文档目录中的记录。
 """Resolve explicit document references against the catalog before workflow routing."""
 import asyncio
 import re

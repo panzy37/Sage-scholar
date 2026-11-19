@@ -1,3 +1,4 @@
+# 功能：校验研究笔记引用的来源标识，保留原始 Markdown 内容。
 """Validate source identity without rewriting a Markdown note through another LLM."""
 import re
 from sage_scholar.domain.research import ResearchNote

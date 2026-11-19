@@ -1,3 +1,4 @@
+# 功能：封装文本 Embedding 调用及其模型身份与 Token 策略。
 import logging
 import os
 from openai import OpenAI, APIConnectionError, APIStatusError

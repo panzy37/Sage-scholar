@@ -1,3 +1,4 @@
+# 功能：提供论文原文读取工具，并清理读取过程中的临时资源。
 from __future__ import annotations
 
 import logging

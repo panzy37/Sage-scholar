@@ -1,3 +1,4 @@
+# 功能：在模型请求边界附加图像内容，避免将图片写入会话历史。
 """Materialize images only at the provider boundary, never in conversation/history."""
 import base64
 from copy import deepcopy

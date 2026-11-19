@@ -1,3 +1,4 @@
+# 功能：创建 FastAPI 应用，注册路由并管理应用生命周期。
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI

@@ -1,3 +1,4 @@
+# 功能：将语义文档引用解析为具体来源，而不授予额外访问权限。
 """Resolve semantic document references without granting source permissions."""
 from dataclasses import dataclass
 

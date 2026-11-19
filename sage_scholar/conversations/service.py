@@ -1,3 +1,4 @@
+# 功能：管理会话查询提交、重复请求去重与安全删除。
 """Conversation ownership, submission deduplication and safe deletion."""
 import asyncio
 import hashlib

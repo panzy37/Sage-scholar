@@ -1,3 +1,4 @@
+# 功能：定义统一工具接口、参数 Schema 与工具调用异常。
 from abc import ABC, abstractmethod
 from typing import Any
 

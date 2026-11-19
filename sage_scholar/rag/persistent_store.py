@@ -1,3 +1,4 @@
+# 功能：以 SQLite 保存分块和索引元数据，并维护可恢复的 FAISS 索引。
 """SQLite is authoritative; revision-named FAISS snapshots are recoverable derivatives.
 
 One process/shared instance, as with the existing application. Staged writes are

@@ -1,3 +1,4 @@
+# 功能：提供长期记忆管理与记忆抽取任务的查询和操作接口。
 import asyncio
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, Field, model_validator

@@ -1,3 +1,4 @@
+# 功能：注册工具并按权限策略生成可用工具列表和 Schema。
 import logging
 from typing import Any
 from .base_tool import BaseTool

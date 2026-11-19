@@ -1,3 +1,4 @@
+# 功能：提供 Agent 的模型调用、消息组装和历史管理基础实现。
 from abc import ABC, abstractmethod
 
 from .message import Message

@@ -1,3 +1,4 @@
+# 功能：在模型请求前检查完整请求是否满足提供商上下文上限。
 """Provider ceiling guard, separate from the estimated working-context budget.
 
 An OpenAI-compatible API does not imply an OpenAI tokenizer. A deployment may

@@ -1,3 +1,4 @@
+# 功能：将深度研究请求交给研究运行时执行。
 from __future__ import annotations
 
 import asyncio

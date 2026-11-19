@@ -1,3 +1,4 @@
+# 功能：统一 Brave 与 Tavily 搜索接口及结果格式。
 """
 搜索mcp fallback 逻辑，统一两种search mcp的格式。
 封装为一种工具，对外均展现为 search。

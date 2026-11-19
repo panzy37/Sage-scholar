@@ -1,3 +1,4 @@
+# 功能：提供本地语义路由的命令行检查入口。
 """python -m sage_scholar.routing.check --query '不要调研，只解释 KL 散度'"""
 import argparse
 import json

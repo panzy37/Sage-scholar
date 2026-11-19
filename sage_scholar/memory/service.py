@@ -1,3 +1,4 @@
+# 功能：协调记忆抽取、合并、更新、删除与任务相关召回。
 """Grounded extraction -> automatic consolidation -> temporal store -> task recall."""
 import json
 import hashlib

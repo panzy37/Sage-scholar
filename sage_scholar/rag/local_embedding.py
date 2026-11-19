@@ -1,3 +1,4 @@
+# 功能：使用本地 Sentence Transformers 模型生成文本向量。
 """Local sentence-transformers embeddings; no remote inference or API credentials."""
 import logging
 import os

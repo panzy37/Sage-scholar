@@ -1,3 +1,4 @@
+# 功能：使用 SQLite 记录记忆抽取任务状态、重试与提交过程。
 """Single-process SQLite extraction journal, using the existing RunStore transaction boundary."""
 import hashlib
 import json

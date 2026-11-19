@@ -1,3 +1,4 @@
+# 功能：封装 LangGraph SQLite 检查点及中断状态的访问与清理。
 """Official LangGraph SQLite saver owns graph channels, tasks and pending writes."""
 import sqlite3
 from pathlib import Path

@@ -1,3 +1,4 @@
+# 功能：为工具添加来源权限检查与证据登记。
 from __future__ import annotations
 
 import hashlib

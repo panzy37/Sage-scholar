@@ -1,3 +1,4 @@
+# 功能：读取可选遥测配置及模型成本配置。
 """Opt-in metadata-only telemetry. No prices or credentials in source code."""
 import json
 import math

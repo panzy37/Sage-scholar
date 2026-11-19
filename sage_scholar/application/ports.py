@@ -1,3 +1,4 @@
+# 功能：定义模型、检索和长任务执行的接口契约。
 from __future__ import annotations
 
 from collections.abc import Awaitable, Callable

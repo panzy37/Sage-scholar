@@ -1,3 +1,4 @@
+# 功能：定义工作流执行预算的默认值与硬上限。
 """Workflow execution defaults and hard ceilings; these are not prompt lengths."""
 import os
 from pydantic import BaseModel, Field

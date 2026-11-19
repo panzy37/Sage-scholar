@@ -1,3 +1,4 @@
+# 功能：调用本地模型，将查询分类为结构化工作流意图。
 """Local structured intent classification; no cloud-provider or regex fallback."""
 import json
 import hashlib

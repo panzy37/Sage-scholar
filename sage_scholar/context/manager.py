@@ -1,3 +1,4 @@
+# 功能：统一组装模型上下文，管理预算、工具结果外置与原始证据回读。
 """Shared context assembly for Direct, QA, Research and Audit; no workflow state here."""
 from contextlib import contextmanager
 from contextvars import ContextVar

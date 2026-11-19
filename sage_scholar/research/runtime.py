@@ -1,3 +1,4 @@
+# 功能：初始化研究工具和运行环境，执行研究并汇总事件与用量。
 from __future__ import annotations
 
 import json

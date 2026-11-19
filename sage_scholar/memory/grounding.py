@@ -1,3 +1,4 @@
+# 功能：核验记忆内容的来源锚点和用户表述依据。
 """Validate source anchors and user commitment before storing canonical decisions."""
 import json
 import re

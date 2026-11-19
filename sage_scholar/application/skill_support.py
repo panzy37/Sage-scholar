@@ -1,3 +1,4 @@
+# 功能：为直接回答与文档问答接入技能指令和受控工具调用。
 """Optional tool calling for Direct/QA using the existing model and source adapters."""
 from sage_scholar.context.manager import request_context
 from sage_scholar.context.tools import ContextReadTool

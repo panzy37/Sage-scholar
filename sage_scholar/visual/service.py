@@ -1,3 +1,4 @@
+# 功能：管理版本化视觉索引、图像检索及原始图片定位。
 """Versioned local visual index and source-bound image resolution."""
 import hashlib
 import json
