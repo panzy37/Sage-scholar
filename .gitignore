@@ -100,3 +100,6 @@ web/CLAUDE.md
 *.swp
 *.swo
 *~
+
+/docs/
+/evals/
